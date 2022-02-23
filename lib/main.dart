@@ -1,5 +1,5 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:card_swiper/card_swiper.dart';
+import 'package:feng/pages/page1.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import "package:universal_html/html.dart";
@@ -35,16 +35,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final _colors = [Colors.cyan, Colors.pinkAccent, Colors.deepPurpleAccent];
-  final _textStyle = const TextStyle(
-      fontSize: 20,
-      height: 1.3,
-      fontWeight: FontWeight.bold,
-      fontFamily: "LongCang",
-      letterSpacing: 1.5,
-      shadows: [
-        Shadow(color: Colors.black, offset: Offset(1, 2), blurRadius: 2)
-      ],
-      color: Colors.white);
 
   @override
   Widget build(BuildContext context) {
@@ -52,34 +42,7 @@ class _HomePageState extends State<HomePage> {
         body: Swiper(
       itemCount: 3,
       itemBuilder: (context, index) {
-        return Container(
-          color: _colors[index],
-          child: SafeArea(
-            child: Stack(
-              alignment: AlignmentDirectional.bottomCenter,
-              children: [
-                Positioned(
-                  top: 16,
-                  right: 16,
-                  child: AnimatedTextKit(
-                    totalRepeatCount: 1,
-                    pause: const Duration(milliseconds: 0),
-                    isRepeatingAnimation: false,
-                    displayFullTextOnTap: true,
-                    animatedTexts: [
-                      TyperAnimatedText(
-                          "他们所有的设备和仪器\n彷佛\n都是有生命的。\n1234567890\nABCDEFGHIJKLMNOPQRSTUVWXYZ",
-                          textStyle: _textStyle,
-                          textAlign: TextAlign.end,
-                          speed: const Duration(milliseconds: 200),
-                          curve: Curves.easeInOutQuad)
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
+        return Page1(color: _colors[index]);
       },
       pagination: const SwiperPagination(
           builder: DotSwiperPaginationBuilder(activeColor: Colors.blue)),
