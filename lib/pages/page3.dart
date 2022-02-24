@@ -1,17 +1,16 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:feng/widgets/animated_background.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-import '../widgets/animated_background.dart';
-
-class Page1 extends StatefulWidget {
-  const Page1({Key? key}) : super(key: key);
+class Page3 extends StatefulWidget {
+  const Page3({Key? key}) : super(key: key);
 
   @override
-  _Page1State createState() => _Page1State();
+  _Page3State createState() => _Page3State();
 }
 
-class _Page1State extends State<Page1> {
+class _Page3State extends State<Page3> {
   final _textStyle = const TextStyle(
       fontSize: 20,
       height: 1.3,
@@ -26,13 +25,11 @@ class _Page1State extends State<Page1> {
   @override
   Widget build(BuildContext context) {
     return AnimatedBackground(
-      beginColorTween: ColorTween(
-          begin: Colors.indigoAccent, end: Colors.cyanAccent.shade700),
-      endColorTween:
-          ColorTween(begin: Colors.greenAccent, end: Colors.deepPurpleAccent),
-      beginAlign: Alignment.topLeft,
-      endAlign: Alignment.bottomRight,
-      curve: Curves.bounceIn,
+      beginColorTween:
+          ColorTween(begin: Colors.deepPurple, end: Colors.blue.shade700),
+      endColorTween: ColorTween(begin: Colors.blueGrey, end: Colors.yellow),
+      beginAlign: Alignment.topRight,
+      endAlign: Alignment.bottomLeft,
       child: SafeArea(
         child: Stack(
           alignment: AlignmentDirectional.bottomCenter,
@@ -49,13 +46,17 @@ class _Page1State extends State<Page1> {
                   TyperAnimatedText(
                       "他们所有的设备和仪器\n彷佛\n都是有生命的。\n1234567890\nABCDEFGHIJKLMNOPQRSTUVWXYZ",
                       textStyle: _textStyle,
-                      textAlign: TextAlign.start,
+                      textAlign: TextAlign.center,
                       speed: const Duration(milliseconds: 200),
                       curve: Curves.easeInOutQuad)
                 ],
               ),
             ),
-            Lottie.asset("assets/anim/kiss.json")
+            Positioned(
+                bottom: 16,
+                right: 0,
+                child: Lottie.asset("assets/anim/rabbit_heart.json",
+                    width: MediaQuery.of(context).size.width))
           ],
         ),
       ),
