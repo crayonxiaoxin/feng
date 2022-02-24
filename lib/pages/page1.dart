@@ -1,4 +1,5 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:feng/widgets/custom_typer.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -52,6 +53,33 @@ class _Page1State extends State<Page1> {
                       textAlign: TextAlign.start,
                       speed: const Duration(milliseconds: 200),
                       curve: Curves.easeInOutQuad)
+                ],
+              ),
+            ),
+            Positioned(
+              top: 16,
+              right: 16,
+              child: AnimatedTextKit(
+                pause: const Duration(milliseconds: 2000),
+                // repeatForever: true,
+                totalRepeatCount: 1,
+                animatedTexts: [
+                  CustomTyperAnimatedText([
+                    "我们一起走过了",
+                    "${fallInLoveDays()}",
+                    "天"
+                  ], [
+                    TextStyle(color: Colors.red, fontFamily: "LongCang"),
+                    TextStyle(
+                        color: Colors.blue,
+                        fontFamily: "LongCang",
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                    TextStyle(
+                      color: Colors.red,
+                      fontFamily: "LongCang",
+                    )
+                  ], speed: Duration(seconds: 1))
                 ],
               ),
             ),
