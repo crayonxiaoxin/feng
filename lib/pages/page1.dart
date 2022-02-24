@@ -2,6 +2,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
+import '../utils/datetime.dart';
 import '../widgets/animated_background.dart';
 
 class Page1 extends StatefulWidget {
@@ -46,8 +47,7 @@ class _Page1State extends State<Page1> {
                 isRepeatingAnimation: false,
                 displayFullTextOnTap: true,
                 animatedTexts: [
-                  TyperAnimatedText(
-                      "他们所有的设备和仪器\n彷佛\n都是有生命的。\n1234567890\nABCDEFGHIJKLMNOPQRSTUVWXYZ",
+                  TyperAnimatedText("我们\n一起走过了\n${fallInLoveDays()}天",
                       textStyle: _textStyle,
                       textAlign: TextAlign.start,
                       speed: const Duration(milliseconds: 200),

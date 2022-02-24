@@ -10,3 +10,10 @@ String formatDate(int y, int m, int d, {String sep = "-"}) {
 String formatMonthDay(int m, int d) {
   return "${twoDigits(m)}月${twoDigits(d)}日";
 }
+
+int fallInLoveDays() {
+  var startDate = DateTime(2020, 4, 21);
+  var endDate = DateTime.now();
+  var days = endDate.difference(startDate).inDays + 1;
+  return days;
+}
