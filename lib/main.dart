@@ -3,6 +3,7 @@ import 'package:feng/pages/birthday_page.dart';
 import 'package:feng/pages/page1.dart';
 import 'package:feng/pages/page2.dart';
 import 'package:feng/pages/page3.dart';
+import 'package:feng/pages/page4.dart';
 import 'package:feng/widgets/immersive_app_bar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +42,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
   final SwiperController _swiperController = SwiperController();
-  final _pages = [BirthdayPage(), Page1(), Page2(), Page3()];
+  final _pages = [BirthdayPage(), Page1(), Page2(), Page3(), Page4()];
 
   // final _pages = [Page1()];
 
