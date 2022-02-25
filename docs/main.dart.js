@@ -31445,10 +31445,10 @@ q=A.jL("assets/anim/hand_heart.json",l,l,new A.a1H(m),!1,l)
 p=t.w
 o=b.W(p).f
 n=m.y&&!m.z?1:0
-o=A.dA(l,A.mM(A.e2(A.a([A.Zm(k,B.bq,B.N,B.a9,B.ai.i9(B.i,30))],s),!0,!0,new A.a1I(m),B.m,!1,1),B.Y,n),l,l,l,l,o.a.b/4,l)
+o=A.dA(l,A.mM(A.e2(A.a([A.Zm(k,B.bq,B.N,B.a9,B.ai.i9(B.i,30))],s),!0,!0,new A.a1I(m),B.m,!1,1),B.Y,n),l,l,l,l,o.a.b/5,l)
 p=b.W(p).f
 n=m.y&&m.z?1:0
-p=A.dA(l,A.mM(A.e2(A.a([A.a5H(k,m.ch,B.N,B.a9,B.ai.i9(B.i,30))],s),!1,!0,l,B.m,!0,3),B.Y,n),l,l,l,l,p.a.b/4,l)
+p=A.dA(l,A.mM(A.e2(A.a([A.a5H(k,m.ch,B.N,B.a9,B.ai.i9(B.i,30))],s),!1,!0,l,B.m,!0,3),B.Y,n),l,l,l,l,p.a.b/5,l)
 s=m.Q?1:0
 return A.zj(B.jm,new A.cH(B.Eh,B.yb),A.EE(!0,A.eN(B.bk,A.a([r,q,o,p,A.dA(36,A.mM(A.jL("assets/anim/dog.json",l,l,l,l,l),B.Y,s),l,l,0,0,l,l)],t.E),B.ag),!0),B.jC,B.bZ,B.cu,new A.cH(B.pM,j))}}
 A.a1H.prototype={

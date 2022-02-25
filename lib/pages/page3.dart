@@ -86,7 +86,7 @@ class _Page3State extends LxState<Page3> {
               });
             }),
             Positioned(
-              top: MediaQuery.of(context).size.height / 4,
+              top: MediaQuery.of(context).size.height / 5,
               child: AnimatedOpacity(
                 opacity: showContent && !showColorsContent ? 1.0 : 0.0,
                 duration: const Duration(milliseconds: 1000),
@@ -112,7 +112,7 @@ class _Page3State extends LxState<Page3> {
               ),
             ),
             Positioned(
-              top: MediaQuery.of(context).size.height / 4,
+              top: MediaQuery.of(context).size.height / 5,
               child: AnimatedOpacity(
                 opacity: showContent && showColorsContent ? 1.0 : 0.0,
                 duration: const Duration(milliseconds: 1000),
