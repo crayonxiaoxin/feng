@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 import '../utils/datetime.dart';
+import '../utils/lx_state.dart';
 import '../widgets/animated_background.dart';
 
 class Page1 extends StatefulWidget {
@@ -13,7 +14,7 @@ class Page1 extends StatefulWidget {
   _Page1State createState() => _Page1State();
 }
 
-class _Page1State extends State<Page1> {
+class _Page1State extends LxState<Page1> {
   final _textStyle = const TextStyle(
       fontSize: 30,
       height: 1.3,

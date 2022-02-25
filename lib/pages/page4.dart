@@ -3,7 +3,7 @@ import 'package:feng/widgets/animated_background.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-import '../widgets/custom_typer.dart';
+import '../utils/lx_state.dart';
 
 class Page4 extends StatefulWidget {
   const Page4({Key? key}) : super(key: key);
@@ -12,7 +12,7 @@ class Page4 extends StatefulWidget {
   _Page4State createState() => _Page4State();
 }
 
-class _Page4State extends State<Page4> {
+class _Page4State extends LxState<Page4> {
   final _textStyle = const TextStyle(
       fontSize: 30,
       height: 1.3,
@@ -53,54 +53,16 @@ class _Page4State extends State<Page4> {
                   isRepeatingAnimation: true,
                   displayFullTextOnTap: true,
                   animatedTexts: [
-                    TyperAnimatedText("以后...",
+                    TyperAnimatedText("未来可期...",
                         textStyle: _textStyle.copyWith(
-                            fontSize: 24, color: Colors.orange),
+                            fontSize: 24, color: Colors.white),
                         textAlign: TextAlign.center,
                         speed: const Duration(milliseconds: 200),
                         curve: Curves.easeInOutQuad),
                   ],
                 )),
             Positioned(
-              top: MediaQuery.of(context).size.height / 5,
-              left: 0,
-              right: 0,
-              child: AnimatedTextKit(
-                totalRepeatCount: 1,
-                pause: const Duration(milliseconds: 0),
-                isRepeatingAnimation: false,
-                displayFullTextOnTap: true,
-                animatedTexts: [
-                  CustomTyperAnimatedText(
-                      textList: [
-                        // "哈哈哈哈哈",
-                        // "哈哈哈哈",
-                        // "哈哈哈",
-                        // "哈哈",
-                        "哈",
-                        "哈哈",
-                        "哈哈哈",
-                        "哈哈哈哈",
-                        "哈哈哈哈哈"
-                      ],
-                      direction: Axis.vertical,
-                      verticalCrossAlignment: CrossAxisAlignment.center,
-                      textStyleList: [
-                        // _textStyle.copyWith(color: Colors.yellow),
-                        // _textStyle.copyWith(color: Colors.purple),
-                        // _textStyle.copyWith(color: Colors.pink),
-                        // _textStyle.copyWith(color: Colors.blueAccent),
-                        _textStyle,
-                        _textStyle.copyWith(color: Colors.blueAccent),
-                        _textStyle.copyWith(color: Colors.pink),
-                        _textStyle.copyWith(color: Colors.purple),
-                        _textStyle.copyWith(color: Colors.yellow)
-                      ]),
-                ],
-              ),
-            ),
-            Positioned(
-              bottom: 36,
+              bottom: 0,
               left: 0,
               right: 0,
               child: AnimatedOpacity(

@@ -3,6 +3,7 @@ import 'package:feng/widgets/animated_background.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
+import '../utils/lx_state.dart';
 import '../widgets/custom_typer.dart';
 
 class Page2 extends StatefulWidget {
@@ -12,7 +13,7 @@ class Page2 extends StatefulWidget {
   _Page2State createState() => _Page2State();
 }
 
-class _Page2State extends State<Page2> {
+class _Page2State extends LxState<Page2> {
   final _textStyle = const TextStyle(
       fontSize: 20,
       height: 1.3,

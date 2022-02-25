@@ -5,6 +5,8 @@ import 'package:feng/widgets/animated_background.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
+import '../utils/lx_state.dart';
+
 class BirthdayPage extends StatefulWidget {
   const BirthdayPage({Key? key}) : super(key: key);
 
@@ -12,7 +14,7 @@ class BirthdayPage extends StatefulWidget {
   _BirthdayPageState createState() => _BirthdayPageState();
 }
 
-class _BirthdayPageState extends State<BirthdayPage> {
+class _BirthdayPageState extends LxState<BirthdayPage> {
   static const _colorizeColors = [
     Colors.white,
     Colors.blue,

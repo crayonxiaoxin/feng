@@ -3,6 +3,7 @@ import 'package:feng/widgets/animated_background.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
+import '../utils/lx_state.dart';
 import '../widgets/custom_typer.dart';
 
 class Page3 extends StatefulWidget {
@@ -12,7 +13,7 @@ class Page3 extends StatefulWidget {
   _Page3State createState() => _Page3State();
 }
 
-class _Page3State extends State<Page3> {
+class _Page3State extends LxState<Page3> {
   final _textStyle = const TextStyle(
       fontSize: 20,
       height: 1.3,
@@ -62,12 +63,10 @@ class _Page3State extends State<Page3> {
                 displayFullTextOnTap: true,
                 animatedTexts: [
                   CustomTyperAnimatedText(
-                      textList: ["尽管", "尝遍甜酸苦辣", "但接下来也..."],
+                      textList: ["接下来..."],
                       direction: Axis.vertical,
                       verticalCrossAlignment: CrossAxisAlignment.end,
                       textStyleList: [
-                        _textStyle,
-                        _textStyle,
                         _textStyle.copyWith(color: Colors.yellow)
                       ]),
                 ],
