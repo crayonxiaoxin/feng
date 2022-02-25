@@ -15,7 +15,7 @@ class Page1 extends StatefulWidget {
 
 class _Page1State extends State<Page1> {
   final _textStyle = const TextStyle(
-      fontSize: 20,
+      fontSize: 30,
       height: 1.3,
       fontWeight: FontWeight.bold,
       fontFamily: "LongCang",
@@ -24,6 +24,21 @@ class _Page1State extends State<Page1> {
         Shadow(color: Colors.black, offset: Offset(1, 2), blurRadius: 2)
       ],
       color: Colors.white);
+
+  final _numberStyle = TextStyle(
+      fontSize: 60,
+      height: 1.3,
+      fontWeight: FontWeight.bold,
+      fontFamily: "Roboto",
+      letterSpacing: 1.5,
+      shadows: const [
+        Shadow(color: Colors.black, offset: Offset(1, 2), blurRadius: 2)
+      ],
+      color: Colors.pink.shade300);
+
+  bool showEmoji = false;
+  bool showDays = false;
+  bool showYears = false;
 
   @override
   Widget build(BuildContext context) {
@@ -36,57 +51,113 @@ class _Page1State extends State<Page1> {
       endAlign: Alignment.bottomRight,
       curve: Curves.bounceIn,
       child: SafeArea(
-        child: Stack(
-          alignment: AlignmentDirectional.bottomCenter,
-          children: [
-            Positioned(
-              top: 16,
-              left: 16,
-              child: AnimatedTextKit(
-                totalRepeatCount: 1,
-                pause: const Duration(milliseconds: 0),
-                isRepeatingAnimation: false,
-                displayFullTextOnTap: true,
-                animatedTexts: [
-                  TyperAnimatedText("我们\n一起走过了\n${fallInLoveDays()}天",
-                      textStyle: _textStyle,
-                      textAlign: TextAlign.start,
-                      speed: const Duration(milliseconds: 200),
-                      curve: Curves.easeInOutQuad)
-                ],
-              ),
-            ),
-            Positioned(
-              top: 16,
-              right: 16,
-              child: AnimatedTextKit(
-                pause: const Duration(milliseconds: 2000),
-                // repeatForever: true,
-                totalRepeatCount: 1,
-                animatedTexts: [
-                  CustomTyperAnimatedText([
-                    "我们一起走过了",
-                    "${fallInLoveDays()}",
-                    "天"
-                  ], [
-                    TextStyle(color: Colors.red, fontFamily: "LongCang"),
-                    TextStyle(
-                        color: Colors.blue,
-                        fontFamily: "LongCang",
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
-                    TextStyle(
-                      color: Colors.red,
-                      fontFamily: "LongCang",
-                    )
-                  ], speed: Duration(seconds: 1))
-                ],
-              ),
-            ),
-            Lottie.asset("assets/anim/kiss.json")
-          ],
-        ),
+        child: _buildContent(),
       ),
+    );
+  }
+
+  _buildContent() {
+    return Stack(
+      alignment: AlignmentDirectional.bottomCenter,
+      children: [
+        Positioned(
+          top: 36,
+          left: 36,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AnimatedTextKit(
+                pause: const Duration(milliseconds: 0),
+                totalRepeatCount: 1,
+                animatedTexts: [
+                  CustomTyperAnimatedText(
+                      textList: ["我们", "在一起"],
+                      direction: Axis.vertical,
+                      textStyleList: [_textStyle, _textStyle])
+                ],
+                onFinished: () {
+                  setState(() {
+                    showDays = true;
+                  });
+                },
+              ),
+              if (showDays)
+                AnimatedTextKit(
+                  pause: const Duration(milliseconds: 0),
+                  totalRepeatCount: 1,
+                  animatedTexts: [
+                    CustomTyperAnimatedText(
+                        textList: ["${fallInLoveDays()}", " 天"],
+                        textStyleList: [_numberStyle, _textStyle],
+                        speed: const Duration(milliseconds: 100))
+                  ],
+                  onFinished: () {
+                    setState(() {
+                      showEmoji = true;
+                    });
+                  },
+                ),
+              if (showEmoji)
+                Padding(
+                  padding: const EdgeInsets.only(top: 20.0),
+                  child: AnimatedTextKit(
+                    pause: const Duration(milliseconds: 0),
+                    totalRepeatCount: 1,
+                    animatedTexts: [
+                      CustomTyperAnimatedText(textList: [
+                        "约",
+                        fallInLoveYears(),
+                        "年，",
+                        "相当于",
+                        fallInLoveMonths(),
+                        "个月"
+                      ], textStyleList: [
+                        _textStyle.copyWith(fontSize: 16),
+                        _numberStyle.copyWith(
+                            fontSize: 20, color: Colors.orange.shade200),
+                        _textStyle.copyWith(fontSize: 16),
+                        _textStyle.copyWith(fontSize: 16),
+                        _numberStyle.copyWith(
+                            fontSize: 20, color: Colors.orange.shade200),
+                        _textStyle.copyWith(fontSize: 16)
+                      ])
+                    ],
+                  ),
+                ),
+            ],
+          ),
+        ),
+        Align(
+          child: AnimatedOpacity(
+            opacity: showEmoji ? 1.0 : 0.0,
+            duration: const Duration(milliseconds: 1500),
+            child: Padding(
+              padding: const EdgeInsets.only(top: 80.0),
+              child: Lottie.asset("assets/anim/couple.json"),
+            ),
+          ),
+        ),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: AnimatedOpacity(
+            opacity: showEmoji ? 1.0 : 0.0,
+            duration: const Duration(milliseconds: 1500),
+            child: Padding(
+              padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).size.height / 7),
+              child: AnimatedTextKit(
+                repeatForever: true,
+                pause: const Duration(seconds: 0),
+                animatedTexts: [
+                  WavyAnimatedText("Since 2020.04.21",
+                      textAlign: TextAlign.center,
+                      textStyle: _textStyle.copyWith(fontSize: 20, shadows: []))
+                ],
+              ),
+            ),
+          ),
+        )
+      ],
     );
   }
 }

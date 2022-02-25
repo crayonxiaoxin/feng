@@ -3,6 +3,7 @@ import 'package:feng/pages/birthday_page.dart';
 import 'package:feng/pages/page1.dart';
 import 'package:feng/pages/page2.dart';
 import 'package:feng/pages/page3.dart';
+import 'package:feng/widgets/immersive_app_bar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -42,43 +43,48 @@ class _HomePageState extends State<HomePage> {
   final SwiperController _swiperController = SwiperController();
   final _pages = [BirthdayPage(), Page1(), Page2(), Page3()];
 
+  // final _pages = [Page1()];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        extendBodyBehindAppBar: true,
+        appBar: const ImmersiveAppBar(height: 0),
         body: Stack(
-      children: [
-        Swiper(
-          itemCount: _pages.length,
-          itemBuilder: (context, index) {
-            return _pages[index];
-          },
-          pagination: const SwiperPagination(
-              builder: DotSwiperPaginationBuilder(activeColor: Colors.blue)),
-          controller: _swiperController,
-          scrollDirection: Axis.vertical,
-          loop: false,
-          onIndexChanged: (index) {
-            setState(() {
-              _currentIndex = index;
-            });
-          },
-        ),
-        Align(
-            alignment: Alignment.bottomCenter,
-            child: AnimatedOpacity(
-              duration: const Duration(milliseconds: 200),
-              opacity: _currentIndex < _pages.length - 1 ? 1 : 0,
-              child: InkWell(
-                  onTap: () {
-                    _swiperController.next();
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 16.0),
-                    child: Lottie.asset("assets/anim/down.json",
-                        height: 40, width: 40),
-                  )),
-            ))
-      ],
-    ));
+          children: [
+            Swiper(
+              itemCount: _pages.length,
+              itemBuilder: (context, index) {
+                return _pages[index];
+              },
+              pagination: const SwiperPagination(
+                  builder:
+                      DotSwiperPaginationBuilder(activeColor: Colors.blue)),
+              controller: _swiperController,
+              scrollDirection: Axis.vertical,
+              loop: false,
+              onIndexChanged: (index) {
+                setState(() {
+                  _currentIndex = index;
+                });
+              },
+            ),
+            Align(
+                alignment: Alignment.bottomCenter,
+                child: AnimatedOpacity(
+                  duration: const Duration(milliseconds: 200),
+                  opacity: _currentIndex < _pages.length - 1 ? 1 : 0,
+                  child: InkWell(
+                      onTap: () {
+                        _swiperController.next();
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 16.0),
+                        child: Lottie.asset("assets/anim/down.json",
+                            height: 40, width: 40),
+                      )),
+                ))
+          ],
+        ));
   }
 }

@@ -17,3 +17,13 @@ int fallInLoveDays() {
   var days = endDate.difference(startDate).inDays + 1;
   return days;
 }
+
+String fallInLoveYears() {
+  var days = fallInLoveDays();
+  return (days / 365).toStringAsFixed(3);
+}
+
+String fallInLoveMonths() {
+  var days = fallInLoveDays();
+  return (days / 30).toStringAsFixed(3);
+}

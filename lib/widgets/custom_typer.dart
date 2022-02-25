@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class CustomTyperAnimatedText extends AnimatedText {
   /// The [Duration] of the delay between the apparition of each characters
   ///
-  /// By default it is set to 40 milliseconds.
+  /// By default it is set to 200 milliseconds.
   final Duration speed;
 
   /// The [Curve] of the rate of change of animation over time.
@@ -13,24 +13,28 @@ class CustomTyperAnimatedText extends AnimatedText {
   /// By default it is set to Curves.linear.
   final Curve curve;
 
+  final Axis direction;
+
   final List<String> textList;
   final List<TextStyle> textStyleList;
-  late List<int> positionList;
+  final WrapCrossAlignment horizontalCrossAlignment;
+  final CrossAxisAlignment verticalCrossAlignment;
 
-  CustomTyperAnimatedText(
-    this.textList,
-    this.textStyleList, {
+  CustomTyperAnimatedText({
+    required this.textList,
+    required this.textStyleList,
+    this.direction = Axis.horizontal,
     TextAlign textAlign = TextAlign.start,
-    this.speed = const Duration(milliseconds: 40),
+    this.speed = const Duration(milliseconds: 200),
     this.curve = Curves.linear,
+    this.horizontalCrossAlignment = WrapCrossAlignment.center,
+    this.verticalCrossAlignment = CrossAxisAlignment.start,
   }) : super(
           text: list2String(textList),
           textAlign: textAlign,
           textStyle: null,
           duration: speed * list2String(textList).characters.length,
-        ) {
-    positionList = list2StringPositions(textList);
-  }
+        );
 
   late Animation<double> _typingText;
 
@@ -57,47 +61,27 @@ class CustomTyperAnimatedText extends AnimatedText {
   }
 
   Widget customTextWidget(int count) {
-    var newList = list2StringGetSub(textList, count);
-    print("newList $newList");
-    return Wrap(
-      children: [
-        ...newList
-            .asMap()
-            .map((index, e) {
-              return MapEntry(
-                  index,
-                  Text(
-                    e,
-                    textAlign: textAlign,
-                    style: textStyleList[newList.indexOf(e)],
-                  ));
-            })
-            .values
-            .toList()
-      ],
-    );
+    var newList = getSubStrListByIndex(textList, count);
+    var children = [
+      ...newList
+          .asMap()
+          .map((index, e) {
+            var item = Text(e,
+                textAlign: textAlign, style: textStyleList[newList.indexOf(e)]);
+            return MapEntry(index, item);
+          })
+          .values
+          .toList()
+    ];
+    return direction == Axis.horizontal
+        ? Wrap(crossAxisAlignment: horizontalCrossAlignment, children: children)
+        : Column(
+            children: children, crossAxisAlignment: verticalCrossAlignment);
   }
 
   @override
   Widget completeText(BuildContext context) {
-    var newList = textList;
-    return Wrap(
-      children: [
-        ...newList
-            .asMap()
-            .map((index, e) {
-              return MapEntry(
-                  index,
-                  Text(
-                    e,
-                    textAlign: textAlign,
-                    style: textStyleList[newList.indexOf(e)],
-                  ));
-            })
-            .values
-            .toList()
-      ],
-    );
+    return customTextWidget(textCharacters.length);
   }
 }
 
@@ -109,64 +93,48 @@ String list2String(List<String> list) {
   return str;
 }
 
-List<int> list2StringPositions(List<String> list) {
-  var text = "";
-  var positionList = <int>[];
+List<int> strList2LenList(List<String> list) {
+  var lenList = <int>[];
   for (var element in list) {
-    positionList.add(0 + text.length);
-    text += element;
+    lenList.add(element.length);
   }
-  print("positions $positionList");
-  return positionList;
+  return lenList;
 }
 
-List<String> list2StringGetSub(List<String> list, int count) {
+List<String> getSubStrListByIndex(List<String> list, int count) {
   if (count == 0) return [];
-  if (count == list.length) return list;
-  var positions = list2StringPositions(list);
-  var index = count - 1;
+  var positions = strList2LenList(list);
   var newList = <String>[];
-  var tmpLen = 0;
+  // 范围上限
+  var tmpLenUpper = 0;
+  // 范围下限
+  var tmpLenLower = 0;
   for (var i = 0; i < positions.length; i++) {
-    // todo: 这里遍历有问题
-    // [0, 7, 10]
-    // count	index
-    // 0   			[]
-    //
-    // 1   	0		list[0][0,1]
-    // 2		1		list[0][0,2]
-    // 3   	2		list[0][0,3]
-    // 4   	3		list[0][0,4]
-    // 5   	4		list[0][0,5]
-    // 6   	5		list[0][0,6]
-    // 7   	6		list[0]
-    //
-    // 8   	7		list[0] + list[1][0,1]
-    // 9   	8		list[0] + list[1][0,2]
-
-    var value = positions[i];
-    var len = list[i].length;
-    if (value == index) {
-      print("index111 $index, $tmpLen, ${list[i]}");
-      newList.add(list[i].substring(0, 1));
-      return newList;
-    } else if (value > index) {
-      print("index222 $index, $tmpLen, ${list[i]}");
-      newList.add(list[i].substring(0, index - tmpLen));
-      return newList;
-    } else if (index >= len) {
+    var len = positions[i];
+    tmpLenUpper += len;
+    if (count == tmpLenUpper) {
       newList.add(list[i]);
-      tmpLen += len;
+      return newList;
+    } else if (count < tmpLenUpper) {
+      /// 假设 [7,3,2]
+      /// count
+      /// 1 < 7   1
+      /// 2 < 7   2
+      /// 3 < 7   3
+      /// 4 < 7   4
+      /// 5 < 7   5
+      /// 6 < 7   6
+      /// 7 = 7
+      /// 8 < 10  1  8-7
+      /// 9 < 10  2  9-7
+      /// 10= 10
+      /// 11< 12  1  11-10
+      /// 12= 12
+      newList.add(list[i].substring(0, count - tmpLenLower));
+      return newList;
     } else {
-      if (index >= len) {
-        newList.add(list[i]);
-        tmpLen += len;
-      } else {
-        print("index333 $index, $tmpLen, ${list[i]}");
-        var lenCut = index - value;
-        newList.add(list[i].substring(0, lenCut + 1));
-        tmpLen += lenCut;
-      }
+      newList.add(list[i]);
+      tmpLenLower += len;
     }
   }
   return list;
