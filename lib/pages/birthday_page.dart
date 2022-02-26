@@ -154,23 +154,20 @@ class _BirthdayPageState extends LxState<BirthdayPage> {
 
   _dateTime() {
     return Positioned(
-      top: 16,
+      top: 8,
       left: 16,
       child: Row(
         children: [
-          const SizedBox(width: 1.0, height: 80.0),
-          Text('${_currentDateTime.year}年', style: _textStyle),
-          const SizedBox(width: 1.0, height: 80.0),
           AnimatedTextKit(
             isRepeatingAnimation: true,
             repeatForever: true,
             animatedTexts: [
               RotateAnimatedText(
-                  formatMonthDay(_currentDateTime.month, _currentDateTime.day),
+                  "${_currentDateTime.year}年${formatMonthDay(_currentDateTime.month, _currentDateTime.day)}",
                   textStyle: _textStyle,
                   textAlign: TextAlign.start,
                   duration: const Duration(milliseconds: 1500)),
-              RotateAnimatedText(_lunarCalendar.monthDay(),
+              RotateAnimatedText(_lunarCalendar.toString(),
                   textStyle: _textStyle,
                   textAlign: TextAlign.start,
                   duration: const Duration(milliseconds: 2000))
